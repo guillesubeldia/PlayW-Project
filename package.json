@@ -1,0 +1,23 @@
+{
+  "name": "playw-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guillesubeldia/PlayW-Project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/guillesubeldia/PlayW-Project/issues"
+  },
+  "homepage": "https://github.com/guillesubeldia/PlayW-Project#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.56.1",
+    "@types/node": "^24.10.1"
+  }
+}
