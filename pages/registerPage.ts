@@ -42,7 +42,9 @@ export class RegisterPage{
     }
 
     async registerNewUser(){
+        // 1. Generamos el usuario
         const user = generateUser();
+        // 2. Rellenamos los campos
         await this.firstName.fill(user.firstName);
         await this.lastName.fill(user.lastName);
         await this.dateOfBirth.fill(user.dob);
@@ -55,7 +57,12 @@ export class RegisterPage{
         await this.phone.fill(user.phone);
         await this.email.fill(user.email);
         await this.password.fill(user.password);
-
+        await this.page.waitForTimeout(3000);
+         // 3. Clic en registrar
         await this.registerButton.click();
+        await this.page.waitForTimeout(3000);
+
+        // 4. ¡El cambio clave! Retornamos el objeto 'user'
+        return user;
     }
 }

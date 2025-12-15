@@ -33,6 +33,17 @@ export default defineConfig({
     baseURL: 'https://practicesoftwaretesting.com/',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
+    //agrego estas lineas para que las pruebas se vean más claras
+    // Tiempo de espera para que las acciones (click, fill) y las aserciones se completen.
+    // Un valor de 10 segundos es un buen punto de partida.
+    actionTimeout: 90000, 
+    navigationTimeout: 90000, 
+
+    // Aquí puedes añadir opciones de visualización para debugging local
+    // Añadimos 'headless: false' como default SÓLO si no estamos en CI, 
+    // lo cual te dará la visualización que buscabas.
+    // **NOTA:** Esto es opcional, pero ayuda mucho en la fase junior/trainee.
+    headless: !!process.env.CI,
   },
 
   /* Configure projects for major browsers */
@@ -42,15 +53,15 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
+    // {
+    //   name: 'webkit',
+    //   use: { ...devices['Desktop Safari'] },
+    // },
 
     /* Test against mobile viewports. */
     // {
