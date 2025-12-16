@@ -1,3 +1,9 @@
+// pages/registerPage.ts
+// Page Object para la pantalla de registro.
+// Uso:
+// - `registerNewUser()` genera un usuario con `utils/userFactory` y lo registra
+//   por UI, devolviendo el objeto `user` con email/password.
+// - Ideal para validar el flujo de registro en un test independiente.
 import { generateUser } from '../utils/userFactory';
 import {type Page , Locator, expect} from '@playwright/test';
 
@@ -57,12 +63,15 @@ export class RegisterPage{
         await this.phone.fill(user.phone);
         await this.email.fill(user.email);
         await this.password.fill(user.password);
+        // Espera explícita corta para evitar flakiness en formularios lentos
+        // (idealmente reemplazar por espera a un selector o navegación)
         await this.page.waitForTimeout(3000);
          // 3. Clic en registrar
         await this.registerButton.click();
         await this.page.waitForTimeout(3000);
 
-        // 4. ¡El cambio clave! Retornamos el objeto 'user'
+        // 4. Retornamos el objeto `user` para que quien invoque el método
+        //    tenga acceso a email/password (útil para login por API o debug).
         return user;
     }
 }

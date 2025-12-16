@@ -1,3 +1,7 @@
+// playwright.config.ts
+// Configuración central de Playwright:
+// - `globalSetup` genera el estado autenticado (test-artifacts/auth.json)
+// - `use.storageState` reutiliza ese estado en los tests para evitar repetir login UI
 import { defineConfig, devices } from '@playwright/test';
 
 /**
@@ -12,6 +16,10 @@ import { defineConfig, devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
+  globalSetup: require.resolve('./global-setup'),
+  // globalSetup se ejecuta UNA vez antes de comenzar la suite y aquí
+  // generamos `test-artifacts/auth.json` para reusar sesión autenticada.
+  // Esto acelera los tests ya que evitan logearse por UI repetidamente.
   
   testDir: './tests',
   
@@ -30,7 +38,11 @@ export default defineConfig({
     /* Base URL to use in actions like `await page.goto('')`. */
     // baseURL: 'http://localhost:3000',
     // URL base de tu aplicación
+    // Base URL de la aplicación bajo prueba. Usar rutas relativas en tests.
     baseURL: 'https://practicesoftwaretesting.com/',
+    // `storageState` apunta al archivo generado por `global-setup.ts`.
+    // Playwright usará cookies/localStorage de ese JSON en cada test.
+    storageState: 'test-artifacts/auth.json',
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
     //agrego estas lineas para que las pruebas se vean más claras
